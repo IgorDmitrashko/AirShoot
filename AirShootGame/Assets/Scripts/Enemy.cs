@@ -9,18 +9,17 @@ public class Enemy : MonoBehaviour
     public float _speed;
 
     [SerializeField] private EnemyСharacteristics _enemyСharacteristics;
-    private Transform _target;  
+   [SerializeField] private Transform _target;  
     private Vector3 _moveOnlyX;
     private Ball ball;
 
-    void Start() {
-        _target = GameObject.FindGameObjectWithTag("Ball").GetComponent<Transform>();
+    void Start() {       
         _moveOnlyX = transform.position;
         _speed = _enemyСharacteristics.moovementSpeed;
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if(collision.collider.tag == "Ball")
+        if(collision.collider.CompareTag("Ball"))
         {
             ball = collision.collider.gameObject.GetComponent<Ball>();
             if(ball != null)

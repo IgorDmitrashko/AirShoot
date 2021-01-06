@@ -31,7 +31,6 @@ public class ControllerAnimation : MonoBehaviour
     private IEnumerator SetBollAnimator(Animator animator, string key) {
         animator.SetBool(key, true);
         yield return new WaitForSeconds(2);
-        animator.SetBool(key, false);
-        StopCoroutine("SetBollAnimator");
+        animator.SetBool(key, false);      
     }
 }

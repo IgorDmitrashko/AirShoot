@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour
     private float _speed = 2;
 
     private void Awake() {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();      
     }
 
     private void Start() {
@@ -44,12 +44,13 @@ public class Ball : MonoBehaviour
         _rigidbody.velocity = _direction.normalized * _speed;
     }
 
+    
     private void OnCollisionEnter(Collision collision) {
-        if(collision.collider.tag == "Border") _direction.x = -_direction.x;
+        if(collision.collider.CompareTag("Border")) _direction.x = -_direction.x;
 
-        else if(collision.collider.tag == "TopBorder") _direction.z = -_direction.z;
+        else if(collision.collider.CompareTag("TopBorder")) _direction.z = -_direction.z;
 
-        else if(collision.collider.tag == "Block")
+        else if(collision.collider.CompareTag("Block"))
         {
             HitTheBlock?.Invoke();
             DefaultPossition();

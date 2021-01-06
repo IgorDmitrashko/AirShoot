@@ -46,7 +46,6 @@ public class Arrow : MonoBehaviour
             {
                 _power = value;
             }
-
         }
     }
     public Vector3 ArrowDirection
@@ -54,15 +53,10 @@ public class Arrow : MonoBehaviour
         get { return transform.position; }
         set
         {
-            if(value.z <= 30 && value.z >= -30)
+            if(transform.rotation.z <= 45 && transform.rotation.z >= -45)
             {
-                transform.Rotate(value); // Страшные попытки ограничить вращение стрелки
+                transform.Rotate(value);
             }
-            else
-            {
-                transform.rotation = Quaternion.identity;
-            }
-           
         }
     }
 
@@ -74,16 +68,13 @@ public class Arrow : MonoBehaviour
 
     private Quaternion _defoltCourse;
     private Vector3 course;
-
-
     [SerializeField] private Joystick _joystick;
 
     private void Start() {
         _defoltCourse = transform.rotation;
     }
 
-    private void FixedUpdate() {
-        //Причина использования new в Update и FixedUpdate такая, что скорее всего эта игра не будет требовательна к ресурсам
+    private void FixedUpdate() {       
         if(_joystick.Vertical > 0.5f)
         {
             course = new Vector3(_joystick.Horizontal * -1, 0, _joystick.Vertical * -1);
@@ -103,7 +94,7 @@ public class Arrow : MonoBehaviour
 
         if(_joystick.Horizontal >= 0.3 || _joystick.Horizontal <= -0.3)
         {
-            course = new Vector3(_joystick.Horizontal * -1, 0, _joystick.Vertical * -1);
+            course = new Vector3(Mathf.Clamp(_joystick.Horizontal * -1, -4.5f, 4.5f), 0, _joystick.Vertical * -1);           
             ArrowDirection = new Vector3(0, 0, _joystick.Horizontal);
         }
 
